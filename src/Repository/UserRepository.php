@@ -39,6 +39,17 @@ class UserRepository extends ServiceEntityRepository
         }
     }
 
+    public function apiFindUser()
+    {
+        $qb = $this->createQueryBuilder("u")
+        ->select("u.nomutilisateur", "u.password", "u.email", "u.dateCreation", "u.roles", "u.isUser", "u.isRetenus")
+        ->orderBy("u.nomutilisateur");
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

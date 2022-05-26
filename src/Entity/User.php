@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -34,12 +35,13 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isRetenus;
+    private $isRetenus = false;
+    // options={"default":"0"}
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isUser;
+    private $isUser = true;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -56,9 +58,20 @@ class User implements UserInterface
      */
     private $candidatures;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nomutilisateur;
+
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
+        $this->dateCreation = new \DateTime();
     }
 
     public function getId(): ?int
@@ -160,10 +173,12 @@ class User implements UserInterface
     {
         return $this->isUser;
     }
-
+    
     public function setIsUser(?bool $isUser): self
     {
         $this->isUser = $isUser;
+        
+        $isUser = true;
 
         return $this;
     }
@@ -218,6 +233,25 @@ class User implements UserInterface
                 $candidature->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getNomutilisateur(): ?string
+    {
+        return $this->nomutilisateur;
+    }
+
+    public function setNomutilisateur(string $nomutilisateur): self
+    {
+        $this->nomutilisateur = $nomutilisateur;
 
         return $this;
     }

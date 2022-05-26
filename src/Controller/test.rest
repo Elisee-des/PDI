@@ -1,0 +1,7 @@
+POST https://127.0.0.1:8001/api/admin/utilisateur/creation
+
+{
+    "nomutilisateur": "user3",
+    "password": "12345",
+    "email": "user3@gmail.com",
+}
